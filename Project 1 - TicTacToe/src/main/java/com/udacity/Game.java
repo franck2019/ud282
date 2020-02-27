@@ -151,6 +151,95 @@ public class Game {
     public String checkGameWinner(char [][]grid){
         String result = "None";
         //Student code goes here ...
+
+        int countX = 0;
+        int countY = 0;
+        //Student code goes here ...
+
+        // check if it's a tie game
+        /* we know that there is a tie game when the game has ended and there no winner.
+         * No winner means every cell is different from '-'.
+         */
+        boolean endGame = true;
+        boolean secondBreak = false;
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid.length; j++){
+                if(grid[i][j] == '-'){
+                    endGame = false;
+                    secondBreak = true;
+                    break;
+                }
+            }
+            if (secondBreak) break;
+        }
+
+        if (endGame) result = "Tie";
+
+        // check per diagonal if there is a winner
+        // Top left to Bottom right (diagonal)
+        for(int i=0; i<grid.length; i++){
+            if (grid[i][i] == 'x') {
+                countX++;
+            }
+
+            if (grid[i][i] == 'o') {
+                countY++;
+            }
+        }
+        //System.out.println(countX + " " +countY);
+        if (countX == 3)  result = "X wins";
+        if (countY == 3)  result = "O wins";
+
+        // Bottom left to Top right (diagonal)
+        countX = 0;
+        countY = 0;
+        for(int i=0; i<grid.length; i++){
+            int size = grid.length - 1;
+            if (grid[i][(size - i)] == 'x') {
+                countX++;
+            }
+
+            if (grid[i][(size - i)] == 'o') {
+                countY++;
+            }
+        }
+        //System.out.println(countX + " " +countY);
+        if (countX == 3)  result = "X wins";
+        if (countY == 3)  result = "O wins";
+
+
+        // check per column if there is a winner
+        for(int i=0; i<grid.length; i++){
+            countX = 0;
+            countY = 0;
+            for(int j=0; j<grid.length; j++){
+                if(grid[i][j] == 'x'){
+                    countX++;
+                }
+                if(grid[i][j] == 'o'){
+                    countY++;
+                }
+            }
+            if (countX == 3)  result = "X wins";
+            if (countY == 3)  result = "O wins";
+        }
+
+        // check per line if there is a winner
+        for(int j=0; j<grid.length; j++){
+            countX = 0;
+            countY = 0;
+            for(int i=0; i<grid.length; i++){
+                if(grid[i][j] == 'x'){
+                    countX++;
+                }
+                if(grid[i][j] == 'o'){
+                    countY++;
+                }
+            }
+            if (countX == 3)  result = "X wins";
+            if (countY == 3)  result = "O wins";
+        }
+        
         return result;
     }
 
